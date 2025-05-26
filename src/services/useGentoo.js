@@ -15,14 +15,18 @@ export const useGentoo = () => {
         if (window.GentooIO) {
             return;
         }
-
         GentooService.loadScript()
             .then(() => {
                 GentooService.boot({
                     partnerId: process.env.NEXT_PUBLIC_PARTNER_ID,
-                    authCode: process.env.NEXT_PUBLIC_AUTH_CODE,
-                    itemId: process.env.NEXT_PUBLIC_ITEM_ID,
-                    displayLocation: "HOME",
+                    authCode: '20250522_selentest1',
+                    itemId: '7OY4sWMh1',
+                    displayLocation: "PRODUCT_DETAIL",
+                });
+                GentooService.getUserSentMessageEvent({
+                    callback: () => {
+                        console.log("GentooService: User sent message");
+                    }
                 });
                 if (isLoadEnabled) {
                     GentooService.init();
@@ -43,14 +47,14 @@ export const useGentoo = () => {
             if (window.GentooIO) {
                 GentooService.unmount();
             }
-            
             if (isLoadEnabled && window.GentooIO) {
                 if (!window.fb) {
+                    console.log("GentooService: SDK script loaded.", process.env.NEXT_PUBLIC_PARTNER_ID, process.env.NEXT_PUBLIC_AUTH_CODE);
                     // Re-run boot if instance was destroyed
                     GentooService.boot({
                         partnerId: process.env.NEXT_PUBLIC_PARTNER_ID,
                         authCode: process.env.NEXT_PUBLIC_AUTH_CODE,
-                        itemId: process.env.NEXT_PUBLIC_ITEM_ID,
+                        itemId: '7OY4sWMh1',
                         displayLocation: "HOME",
                     });
                 }
